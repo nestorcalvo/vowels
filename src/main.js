@@ -42,6 +42,7 @@ var mean;
 var std ;
 var flag_bajo = true;
 var flag_alto = true;
+var pitch;
 
 window.onload = function() {
 	audioContext = new AudioContext();
@@ -196,23 +197,21 @@ checkSustain();
   
 function checkSustain(){
     if (counter_sustain < 1){
-        updatePitch()
+        updatePitch();
         F0buffer[counter_sustain] = pitch;
         counter_sustain += 1;
        
     }
     else{  
 		mean = averagefun(F0buffer);
-
-		
 		//console.log(F0buffer)
 		if (mean<65){
 			p+=1;
 			mean = "-------------";
-			
+			t = 0;	
 			if (p==2){
-				t = 0;		
-				console.clear();
+					
+				//console.clear();
 				console.log(mean)
 				
 			}
@@ -246,30 +245,8 @@ function checkSustain(){
 			t+=1;
 			
 
-			//console.log(mean)
+			//console.log(t)
 		}
-
-		/*stdarray[p] = std;
-		p += 1;
-        if (p >2){
-			if(mean > 80){ //If the mean value is higer than 80 that means that someone is talking
-				vowel_array[t] = averagefun(stdarray);
-				t +=1;
-				if(t == 2 ){
-					if (vowel_array[0]<300 && vowel_array[1]<300){
-					//blow();
-					console.log('sustained');
-					t = 0;
-					vowel_array = []
-					}else{
-						console.log('not sustained')
-					}
-				}
-				
-			}
-			console.log('mean',averagefun(F0buffer));
-			console.log('std',averagefun(stdarray));
-		}*/
         counter_sustain = 0;
         F0buffer = [];
         
